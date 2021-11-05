@@ -5,7 +5,6 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
-    'airbnb',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -20,5 +19,6 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'react/react-in-jsx-scope': 2
   },
 };
