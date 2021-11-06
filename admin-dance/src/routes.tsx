@@ -1,23 +1,17 @@
 import React from 'react';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import { Routes, Route } from 'react-router-dom';
 
-const routes = [
-    {
-        path: 'main',
-        element: <Login />,
-        children: [
-            { path: 'dashboard', element: null},
-            { path: 'course', element: null}
-        ]
-    },
-    {
-        path: '/',
-        element: <Login />,
-        children: [
-            { path: 'login', element: <Login />},
-            { path: 'register', element: null}
-        ]
-    }
-];
+const AppRoutes =() =>{
+    return(
+        <Routes>
+            <Route path='/' element={<Dashboard />} />
+            <Route path='login' element={ <Login /> }/>
+            <Route path='main' element={<Dashboard />}>
+            </Route>
+        </Routes>
+    );
+};
 
-export default routes;
+export default AppRoutes;
