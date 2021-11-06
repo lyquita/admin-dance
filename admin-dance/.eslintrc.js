@@ -19,6 +19,13 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
-    'react/react-in-jsx-scope': 2
+    'react/react-in-jsx-scope': 2,
+    'semi': 'error',
+    'comma-spacing': 'error',
+    'quotes': ['error', 'single'],
+    'no-mixed-operators': 'error',
+    'no-duplicate-imports': 'error',
+    'no-var': 'error',
+    'no-mixed-spaces-and-tabs': 'error'
   },
 };
