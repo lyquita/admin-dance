@@ -12,7 +12,6 @@ import {
 
 import { User } from '../interfaces/Login';
 
-// Login Component
 const Login = () => {
   return (
     <>
