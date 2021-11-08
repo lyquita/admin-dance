@@ -17,9 +17,9 @@ import ListItemText from '@mui/material/ListItemText';
 import Dog from '../../assets/svgs/Dog';
 import Tushe from '../../assets/svgs/Tushe';
 import Chigua from '../../assets/Chigua';
-import { Avatar, Grid, ListItemButton, Stack } from '@mui/material';
+import { Avatar, Button, Grid, ListItemButton, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { height } from '@mui/system';
+import { LogOut } from 'react-feather';
 
 const drawerWidth = 200;
 
@@ -102,20 +102,24 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box>
       <CssBaseline />
-      <AppBar position='fixed' open={open}>
+            <AppBar position="static">
         <Toolbar>
           <IconButton
-            color='inherit'
-            aria-label='open drawer'
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
             onClick={handleDrawerOpen}
-            edge='start'
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
-            <Dog style={{ width: '50px', height: 'auto' }} />
+            <Chigua />
           </IconButton>
-          <Typography>Dog! dont cry...</Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Dog, dont cry..
+          </Typography>
+          <LogOut /> 
         </Toolbar>
       </AppBar>
       <Drawer
@@ -131,7 +135,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         anchor='left'
         open={open}
       >
-        <DrawerHeader sx={{height:'200px'}}>
+        <DrawerHeader sx={{ height: '200px' }}>
           <Grid container direction='column' height='100%'>
             <Grid item display='flex' justifyContent='flex-end'>
               <IconButton onClick={handleDrawerClose}>
@@ -143,13 +147,22 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </IconButton>
             </Grid>
             <Grid item display='flex' flexDirection='column'>
-              <Stack spacing={2} alignItems='flex-start' padding="0 30px" >
-              <Box sx={{width:'100px', height:'100px', background:'yellow', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                <Avatar alt='hireoo' >
-                  <Chigua />
-                </Avatar>
-              </Box>
-              <Typography>Hireoo</Typography>
+              <Stack spacing={2} alignItems='flex-start' padding='0 30px'>
+                <Box
+                  sx={{
+                    width: '100px',
+                    height: '100px',
+                    background: 'yellow',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Avatar alt='hireoo'>
+                    <Chigua />
+                  </Avatar>
+                </Box>
+                <Typography>Hireoo</Typography>
               </Stack>
             </Grid>
           </Grid>
@@ -170,10 +183,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           ))}
         </List>
       </Drawer>
-      <Main open={open}>
+      {/* <Main open={open}>
         <DrawerHeader />
         {children}
-      </Main>
+      </Main> */}
     </Box>
   );
 };
