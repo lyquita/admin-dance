@@ -26,6 +26,7 @@ module.exports = {
     'no-mixed-operators': 'error',
     'no-duplicate-imports': 'error',
     'no-var': 'error',
-    'no-mixed-spaces-and-tabs': 'error'
+    'no-mixed-spaces-and-tabs': 'error',
+    'react/prop-types': 'off'
   },
 };

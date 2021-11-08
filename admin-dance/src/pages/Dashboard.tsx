@@ -1,16 +1,15 @@
 import React from 'react';
-import { Outlet } from 'react-router';
+import Dog from '../assets/svgs/Dog';
+import { Box } from '@mui/system';
+import { Container, Typography } from '@mui/material';
 
-
-
-const Dashboard =() =>{
-
-    return(
-        <>
-        this is the dashboard
-        <Outlet />
-        </>
-    );
+const Dashboard = () => {
+  return (
+    <Container>
+      <Dog />
+      <Typography>This is the Dashboard</Typography>
+      </Container>
+  );
 };
 
 export default Dashboard;
