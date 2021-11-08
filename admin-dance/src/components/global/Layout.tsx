@@ -16,10 +16,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Dog from '../../assets/svgs/Dog';
 import Tushe from '../../assets/svgs/Tushe';
-import PropTypes from 'prop-types';
 import Chigua from '../../assets/Chigua';
-import { ListItemButton } from '@mui/material';
+import { Avatar, Grid, ListItemButton, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { height } from '@mui/system';
 
 const drawerWidth = 200;
 
@@ -131,30 +131,43 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         anchor='left'
         open={open}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
+        <DrawerHeader sx={{height:'200px'}}>
+          <Grid container direction='column' height='100%'>
+            <Grid item display='flex' justifyContent='flex-end'>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'ltr' ? (
+                  <ChevronLeftIcon />
+                ) : (
+                  <ChevronRightIcon />
+                )}
+              </IconButton>
+            </Grid>
+            <Grid item display='flex' flexDirection='column'>
+              <Stack spacing={2} alignItems='flex-start' padding="0 30px" >
+              <Box sx={{width:'100px', height:'100px', background:'yellow', display:'flex', justifyContent:'center', alignItems:'center'}}>
+                <Avatar alt='hireoo' >
+                  <Chigua />
+                </Avatar>
+              </Box>
+              <Typography>Hireoo</Typography>
+              </Stack>
+            </Grid>
+          </Grid>
         </DrawerHeader>
+        <Divider />
         <List>
-          {
-            menuItems.map((item)=>(
-              <ListItem key={item.text} alignItems='center'>
-                <ListItemButton>
-                <Link to={item.path} style={{textDecoration:'none'}}>
-                <ListItemIcon sx={{width:'25px', height:'25px'}}>
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText primary={item.text} />
+          {menuItems.map((item) => (
+            <ListItem key={item.text} alignItems='center'>
+              <ListItemButton>
+                <Link to={item.path} style={{ textDecoration: 'none' }}>
+                  <ListItemIcon sx={{ width: '25px', height: '25px' }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} />
                 </Link>
-                </ListItemButton>
-              </ListItem>
-            ))
-          }
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Drawer>
       <Main open={open}>
