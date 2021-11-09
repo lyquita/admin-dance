@@ -20,6 +20,7 @@ import Chigua from '../../assets/Chigua';
 import { Avatar, Button, Grid, ListItemButton, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { LogOut } from 'react-feather';
+import { LayoutProps } from '../../interfaces/Layout';
 
 const drawerWidth = 200;
 
@@ -48,7 +49,6 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-interface LayoutProps {}
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
