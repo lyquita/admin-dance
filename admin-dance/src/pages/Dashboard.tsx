@@ -9,7 +9,7 @@ import Chart from '../components/dashboard/Chart';
 const Dashboard = () => {
   return (
     <Container style={{ padding: '50px 20px' }} maxWidth={false}>
-      <Grid container direction='column' spacing={3}>
+      <Grid container direction='column' spacing={3} alignContent='center'>
         <Grid item>
           <Toolkit />
         </Grid>
