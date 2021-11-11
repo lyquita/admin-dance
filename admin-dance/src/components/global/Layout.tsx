@@ -18,7 +18,7 @@ import Dog from '../../assets/svgs/Dog';
 import Tushe from '../../assets/svgs/Tushe';
 import Chigua from '../../assets/Chigua';
 import { Avatar, Button, Grid, ListItemButton, Stack } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LogOut } from 'react-feather';
 import { LayoutProps } from '../../interfaces/Layout';
 
@@ -90,6 +90,7 @@ const menuItems = [
 ];
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -99,6 +100,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleLogOut = () => {
+    navigate('/login');
   };
 
   return (
@@ -119,7 +124,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Dog, dont cry..
           </Typography>
-          <LogOut /> 
+          <Button onClick={handleLogOut} sx={{color:'white'}}>
+            Log out
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
