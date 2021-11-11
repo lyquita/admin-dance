@@ -85,7 +85,7 @@ const menuItems = [
   {
     text: 'Course',
     icon: <Chigua />,
-    path: '/login',
+    path: '/course',
   },
 ];
 
