@@ -7,7 +7,7 @@ const Course = () =>{
 
     return (
         <>
-            <Grid container>
+            <Grid container direction='column'>
                 <Grid item>
                     <Toolkit />
                 </Grid>
