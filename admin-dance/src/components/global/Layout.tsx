@@ -109,7 +109,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Box>
       <CssBaseline />
-            <AppBar position="static">
+        <AppBar position="fixed">
         <Toolbar>
           <IconButton
             size="large"
