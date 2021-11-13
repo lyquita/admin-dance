@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
+import CourseTable from '../components/courses/Table';
 import Toolkit from '../components/courses/Toolkit';
 
 const Course = () =>{
@@ -8,10 +9,12 @@ const Course = () =>{
     return (
         <>
             <Grid container direction='column'>
-                <Grid item>
+                <Grid item width='100%'>
                     <Toolkit />
                 </Grid>
-                <Grid item>course list</Grid>
+                <Grid item width='100%'>
+                    <CourseTable />
+                </Grid>
             </Grid>
         </>
     );
