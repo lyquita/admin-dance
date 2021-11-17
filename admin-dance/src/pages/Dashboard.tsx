@@ -10,11 +10,8 @@ import { useNavigate } from 'react-router';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>('huanyuhui');
 
-  const config: any = {
-    placeName : inputValue
-  };
 
   useEffect(()=>{
 
@@ -27,7 +24,7 @@ const Dashboard = () => {
       return Promise.reject(err);
     }  );
 
-    axios.get('/course/', config)
+    axios(`/course/${inputValue}/last_seven_days`)
     .then(()=>{})
     .catch(err => {
       if(err.response.status == '401'){
@@ -35,9 +32,8 @@ const Dashboard = () => {
       }
     });
 
+  }, [inputValue]);
 
-
-  }, []);
 
   return (
     <Container style={{ padding: '100px 20px 50px 20px' }} maxWidth={false}>

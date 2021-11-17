@@ -22,6 +22,7 @@ export interface ChartData{
 export interface Place{
     id: number;
     placeName: string;
+    value: string;
 }
 
 

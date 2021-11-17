@@ -36,7 +36,7 @@ const Toolkit:React.FC<ToolkitProps> = ({ inputValue, setInputValue } ) => {
                             <Select id='placename' labelId='placename' onChange={handleChange} value={selectedValue}>
                                 {
                                     placeItems.map((item)=>(
-                                        <MenuItem key={item.id} value={item.placeName}> {item.placeName} </MenuItem>
+                                        <MenuItem key={item.id} value={item.value}> {item.placeName} </MenuItem>
                                     ))
                                 }
                             </Select>
