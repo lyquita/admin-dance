@@ -7,10 +7,18 @@ import AmountStatistic from '../components/dashboard/AmountStatistic';
 import Chart from '../components/dashboard/Chart';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import { IAmountStatistics } from '../interfaces/Dashboard';
+
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState<string>('huanyuhui');
+
+  const [avgOrderAmount, setAvgOrderAmount] = useState<number>(20);
+  const [avgSignAmount, setAvgSignAmount] = useState<number>(20);
+  const [avgOccupyRate, setAvgOccupyRate] = useState<number>(0.80);
+  const [avgCostPerUser, setAvgCostPerUser] = useState<number>(20);
 
 
   useEffect(()=>{
@@ -25,7 +33,13 @@ const Dashboard = () => {
     }  );
 
     axios(`/course/${inputValue}/last_seven_days`)
-    .then(()=>{})
+    .then((res)=>{
+      const data = res.data.results[0];
+      setAvgOrderAmount(data.avg_orderamount);
+      setAvgSignAmount(data.avg_signamount);
+      setAvgOccupyRate(data.avg_occupyrate);
+      setAvgCostPerUser(data.avg_costperuser);
+    })
     .catch(err => {
       if(err.response.status == '401'){
         navigate('/login', {replace:true});
@@ -35,6 +49,7 @@ const Dashboard = () => {
   }, [inputValue]);
 
 
+
   return (
     <Container style={{ padding: '100px 20px 50px 20px' }} maxWidth={false}>
       <Grid container direction='column' spacing={3} alignContent='center'>
@@ -42,7 +57,7 @@ const Dashboard = () => {
           <Toolkit inputValue = { inputValue } setInputValue = { setInputValue }/>
         </Grid>
         <Grid item>
-          <AmountStatistic />
+          <AmountStatistic avgSignAmount={avgSignAmount} avgOrderAmount={avgOrderAmount} avgCostPerUser={avgCostPerUser} avgOccupyRate={avgOccupyRate}/>
         </Grid>
         <Grid item>
           <Chart />

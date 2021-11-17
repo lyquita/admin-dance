@@ -1,6 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { makeStyles } from '@mui/styles';
+import { IAmountStatistics } from '../../interfaces/Dashboard';
 
 const useStyles = makeStyles({
   box: {
@@ -16,41 +17,40 @@ const useStyles = makeStyles({
   },
 });
 
-const AmountStatistic = () => {
+const AmountStatistic:React.FC<IAmountStatistics> =({ avgOrderAmount, avgSignAmount, avgCostPerUser, avgOccupyRate }) => {
   const classes = useStyles();
-
   return (
     <>
       <Grid container spacing={{ xs: 1, sm:2 }}>
         <Grid item xs={12} sm={6}>
           <Box className={classes.box}>
-            <Typography variant='h4'>Order Amount</Typography>
+            <Typography variant='h4'>Avg Order Amount</Typography>
             <Typography variant='h2' fontWeight='700'>
-              33
+              {Math.round(avgOrderAmount*100)/100}
             </Typography>
           </Box>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Box className={classes.box}>
-            <Typography variant='h4'>Order Amount</Typography>
+            <Typography variant='h4'>Avg Sign Amount</Typography>
             <Typography variant='h2' fontWeight='700'>
-              33
+              {Math.round(avgSignAmount*100)/100}
             </Typography>
           </Box>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Box className={classes.box}>
-            <Typography variant='h4'>Order Amount</Typography>
+            <Typography variant='h4'>Avg Occupy Rate</Typography>
             <Typography variant='h2' fontWeight='700'>
-              33
+              {Math.round(avgOccupyRate*100)}%
             </Typography>
           </Box>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Box className={classes.box}>
-            <Typography variant='h4'>Order Amount</Typography>
+            <Typography variant='h4'>Avg Cost Per User</Typography>
             <Typography variant='h2' fontWeight='700'>
-              33
+              {Math.round(avgCostPerUser*100)/100}
             </Typography>
           </Box>
         </Grid>

@@ -6,6 +6,13 @@ export interface ToolkitProps{
 }
 
 
+export interface IAmountStatistics{
+    avgOrderAmount: number,
+    avgSignAmount: number,
+    avgOccupyRate: number,
+    avgCostPerUser: number
+}
+
 interface Dataset{
     label: string,
     data: number[],
@@ -24,6 +31,8 @@ export interface Place{
     placeName: string;
     value: string;
 }
+
+
 
 
 

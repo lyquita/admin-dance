@@ -32,8 +32,8 @@ const Toolkit:React.FC<ToolkitProps> = ({ inputValue, setInputValue } ) => {
                     </Grid>
                     <Grid item sx={{padding:'10px 40px'}}>
                         <FormControl sx={{ width : { xs: '100%', md: '50%'  }}} >
-                            <InputLabel id='placename'>Wanna check another places?</InputLabel>
-                            <Select id='placename' labelId='placename' onChange={handleChange} value={selectedValue}>
+                            <InputLabel id='placename'>环宇荟</InputLabel>
+                            <Select id='placename' labelId='placename' onChange={handleChange} value={selectedValue} >
                                 {
                                     placeItems.map((item)=>(
                                         <MenuItem key={item.id} value={item.value}> {item.placeName} </MenuItem>
