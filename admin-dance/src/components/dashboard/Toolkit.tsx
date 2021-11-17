@@ -1,10 +1,19 @@
-import { Grid, Box, Typography, Stack, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import React, { FC } from 'react';
+import { Grid, Box, Typography, Stack, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import React, { FC, useState } from 'react';
 import { ToolkitProps } from '../../interfaces/Dashboard';
+import  placeItems  from '../global/common';
+
+const Toolkit:React.FC<ToolkitProps> = ({ inputValue, setInputValue } ) => {
+
+    const [selectedValue, setSelectedValue] = useState<string>('');
 
 
-const Toolkit: React.FC<ToolkitProps> =() =>{
-
+    
+    function handleChange(e: SelectChangeEvent){
+        setSelectedValue(e.target.value);
+        setInputValue(e.target.value);
+        
+    }
 
     return(
         <>
@@ -24,9 +33,12 @@ const Toolkit: React.FC<ToolkitProps> =() =>{
                     <Grid item sx={{padding:'10px 40px'}}>
                         <FormControl sx={{ width : { xs: '100%', md: '50%'  }}} >
                             <InputLabel id='placename'>Wanna check another places?</InputLabel>
-                            <Select id='placename' labelId='placename'>
-                                <MenuItem>环宇荟</MenuItem>
-                                <MenuItem>世纪大道</MenuItem>
+                            <Select id='placename' labelId='placename' onChange={handleChange} value={selectedValue}>
+                                {
+                                    placeItems.map((item)=>(
+                                        <MenuItem key={item.id} value={item.placeName}> {item.placeName} </MenuItem>
+                                    ))
+                                }
                             </Select>
                         </FormControl>
                     </Grid>

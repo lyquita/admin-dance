@@ -1,4 +1,9 @@
-export interface ToolkitProps{}
+import placeItems from '../components/global/common';
+
+export interface ToolkitProps{
+    inputValue: string;
+    setInputValue: (arg: string) => void;
+}
 
 
 interface Dataset{
@@ -13,3 +18,12 @@ export interface ChartData{
     labels: string[],
     datasets: Dataset[]
 }
+
+export interface Place{
+    id: number;
+    placeName: string;
+}
+
+
+
+
