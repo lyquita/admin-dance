@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartData } from '../../interfaces/Dashboard';
+import { ChartData, IChartProps } from '../../interfaces/Dashboard';
 import CostPerUserChart from './CostPerUser';
 import OccupyRateChart from './OccupyRateChart';
 import OrderAmountChart from './OrderAmountChart';
@@ -23,9 +23,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Chart = () => {
+const Chart:React.FC<IChartProps> = ({orderAmountList}) => {
   const classes = useStyles();
-
+  
   return (
     <>
       <Grid container spacing={{ xs: 1, sm: 2 }}>
@@ -41,7 +41,7 @@ const Chart = () => {
           <Box className={classes.box}>
             <Typography variant='h4'>Order Amount</Typography>
             <Typography variant='h2' fontWeight='700'>
-              <OrderAmountChart />
+              <OrderAmountChart orderAmountList={orderAmountList}/>
             </Typography>
           </Box>
         </Grid>

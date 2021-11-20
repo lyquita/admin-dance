@@ -7,7 +7,7 @@ import AmountStatistic from '../components/dashboard/AmountStatistic';
 import Chart from '../components/dashboard/Chart';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import { IAmountStatistics } from '../interfaces/Dashboard';
+import { ChartData, IAmountStatistics, Dataset } from '../interfaces/Dashboard';
 
 
 
@@ -19,10 +19,13 @@ const Dashboard = () => {
   const [avgSignAmount, setAvgSignAmount] = useState<number>(20);
   const [avgOccupyRate, setAvgOccupyRate] = useState<number>(0.80);
   const [avgCostPerUser, setAvgCostPerUser] = useState<number>(20);
-
+  const [orderAmountList, setOrderAmountList] = useState<ChartData>({ labels: ['hip hop', 'swag', 'choreography'],
+  datasets: [{data: [1, 3, 4]}]});
+ 
 
   useEffect(()=>{
 
+    // axios before
     axios.interceptors.request.use( config =>{
       // @ts-ignore
       config.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
@@ -32,6 +35,7 @@ const Dashboard = () => {
       return Promise.reject(err);
     }  );
 
+
     axios(`/course/${inputValue}/last_seven_days`)
     .then((res)=>{
       const data = res.data.results[0];
@@ -39,11 +43,32 @@ const Dashboard = () => {
       setAvgSignAmount(data.avg_signamount);
       setAvgOccupyRate(data.avg_occupyrate);
       setAvgCostPerUser(data.avg_costperuser);
+
+      let orderAmountListLabels: string[] = [];
+      let orderAmountListData: number[] = [];
+  
+      //remove useless object value
+        Object.keys(data).forEach((item)=>{
+          if(data[item] == null || data[item] == '' || data[item] == undefined ){
+            delete data[item];
+          };
+        });
+  
+        Object.keys(data).forEach((item)=>{
+          if(item.match(RegExp('order'))){
+              orderAmountListLabels.push(item);
+              orderAmountListData.push(Math.round(data[item]*100)/100);
+            }
+        });
+      
+        setOrderAmountList({labels: orderAmountListLabels, datasets: [{data: orderAmountListData}] });
+      return data;
     })
-    .catch(err => {
+    .catch(function(err){
       if(err.response.status == '401'){
         navigate('/login', {replace:true});
       }
+      return Promise.reject(err);
     });
 
   }, [inputValue]);
@@ -60,7 +85,7 @@ const Dashboard = () => {
           <AmountStatistic avgSignAmount={avgSignAmount} avgOrderAmount={avgOrderAmount} avgCostPerUser={avgCostPerUser} avgOccupyRate={avgOccupyRate}/>
         </Grid>
         <Grid item>
-          <Chart />
+          <Chart orderAmountList={orderAmountList}/>
         </Grid>
       </Grid>
     </Container>

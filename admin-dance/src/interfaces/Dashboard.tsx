@@ -13,16 +13,16 @@ export interface IAmountStatistics{
     avgCostPerUser: number
 }
 
-interface Dataset{
-    label: string,
+export interface Dataset{
+    label?: string,
     data: number[],
-    backgroundColor: string[],
-    borderColor: string[],
-    borderWidth: number
+    backgroundColor?: string[],
+    borderColor?: string[],
+    borderWidth?: number
 }
 
 export interface ChartData{
-    labels: string[],
+    labels?: string[],
     datasets: Dataset[]
 }
 
@@ -32,8 +32,6 @@ export interface Place{
     value: string;
 }
 
-
-
-
-
-
+export interface IChartProps{
+    orderAmountList : ChartData,
+}
