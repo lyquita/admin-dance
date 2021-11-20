@@ -33,5 +33,14 @@ export interface Place{
 }
 
 export interface IChartProps{
+    orderAmountList: ChartData,
+    signAmountList: ChartData
+}
+
+export interface IOrderProps{
     orderAmountList : ChartData,
+}
+
+export interface ISignProps{
+    signAmountList: ChartData,
 }

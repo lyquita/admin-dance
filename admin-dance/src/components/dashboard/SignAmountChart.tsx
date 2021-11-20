@@ -1,15 +1,15 @@
 import React from 'react';
 import { Bar} from 'react-chartjs-2';
-import { ChartData } from '../../interfaces/Dashboard';
+import { ChartData,  ISignProps } from '../../interfaces/Dashboard';
 
 
-const SignAmountChart = () =>{
+const SignAmountChart:React.FC<ISignProps> = ({signAmountList}) =>{
     const data: ChartData ={
-        labels:['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels:signAmountList?.labels,
         datasets: [
             {
               label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
+              data: signAmountList.datasets[0].data,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

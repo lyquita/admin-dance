@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartData, IChartProps } from '../../interfaces/Dashboard';
+import { ChartData, IOrderProps } from '../../interfaces/Dashboard';
 
 
-const OrderAmountChart:React.FC<IChartProps> =({orderAmountList}) =>{
+const OrderAmountChart:React.FC<IOrderProps> =({orderAmountList}) =>{
   
     const data: ChartData ={
         labels: orderAmountList?.labels,

@@ -21,6 +21,8 @@ const Dashboard = () => {
   const [avgCostPerUser, setAvgCostPerUser] = useState<number>(20);
   const [orderAmountList, setOrderAmountList] = useState<ChartData>({ labels: ['hip hop', 'swag', 'choreography'],
   datasets: [{data: [1, 3, 4]}]});
+  const [signAmountList, setSignAmountList] = useState<ChartData>({ labels: ['hip hop', 'swag', 'choreography'],
+  datasets: [{data: [1, 3, 4]}]});
  
 
   useEffect(()=>{
@@ -46,6 +48,8 @@ const Dashboard = () => {
 
       let orderAmountListLabels: string[] = [];
       let orderAmountListData: number[] = [];
+      let signAmountListLabels: string[] = [];
+      let signAmountListData: number[] = [];
   
       //remove useless object value
         Object.keys(data).forEach((item)=>{
@@ -59,9 +63,15 @@ const Dashboard = () => {
               orderAmountListLabels.push(item);
               orderAmountListData.push(Math.round(data[item]*100)/100);
             }
+          if(item.match(RegExp('sign'))){
+            signAmountListLabels.push(item);
+            signAmountListData.push(Math.round(data[item]*100)/100);
+          }
         });
       
         setOrderAmountList({labels: orderAmountListLabels, datasets: [{data: orderAmountListData}] });
+        setSignAmountList({labels: signAmountListLabels, datasets: [{data: signAmountListData}] });
+
       return data;
     })
     .catch(function(err){
@@ -85,7 +95,7 @@ const Dashboard = () => {
           <AmountStatistic avgSignAmount={avgSignAmount} avgOrderAmount={avgOrderAmount} avgCostPerUser={avgCostPerUser} avgOccupyRate={avgOccupyRate}/>
         </Grid>
         <Grid item>
-          <Chart orderAmountList={orderAmountList}/>
+          <Chart orderAmountList={orderAmountList} signAmountList={signAmountList}/>
         </Grid>
       </Grid>
     </Container>

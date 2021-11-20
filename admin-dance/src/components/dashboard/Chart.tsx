@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Chart:React.FC<IChartProps> = ({orderAmountList}) => {
+const Chart:React.FC<IChartProps> = ({orderAmountList, signAmountList}) => {
   const classes = useStyles();
   
   return (
@@ -33,7 +33,7 @@ const Chart:React.FC<IChartProps> = ({orderAmountList}) => {
           <Box className={classes.box}>
             <Typography variant='h4'>Sign Amount</Typography>
             <Typography variant='h2' fontWeight='700'>
-                <SignAmountChart />
+                <SignAmountChart signAmountList={signAmountList}/>
             </Typography>
           </Box>
         </Grid>
