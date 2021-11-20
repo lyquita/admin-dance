@@ -23,7 +23,10 @@ const Dashboard = () => {
   datasets: [{data: [1, 3, 4]}]});
   const [signAmountList, setSignAmountList] = useState<ChartData>({ labels: ['hip hop', 'swag', 'choreography'],
   datasets: [{data: [1, 3, 4]}]});
- 
+  const [occupyRateList, setOccupyRateList] = useState<ChartData>({ labels: ['hip hop', 'swag', 'choreography'],
+  datasets: [{data: [1, 3, 4]}]});
+  const [costPerUserList, setCostPerUserList] = useState<ChartData>({ labels: ['hip hop', 'swag', 'choreography'],
+  datasets: [{data: [1, 3, 4]}]});
 
   useEffect(()=>{
 
@@ -50,6 +53,10 @@ const Dashboard = () => {
       let orderAmountListData: number[] = [];
       let signAmountListLabels: string[] = [];
       let signAmountListData: number[] = [];
+      let occupyRateListLabels: string[] = [];
+      let occupyRateListData: number[] = [];
+      let costPerUserListLabels: string[] = [];
+      let costPerUserListData: number[] = [];
   
       //remove useless object value
         Object.keys(data).forEach((item)=>{
@@ -62,16 +69,25 @@ const Dashboard = () => {
           if(item.match(RegExp('order'))){
               orderAmountListLabels.push(item);
               orderAmountListData.push(Math.round(data[item]*100)/100);
-            }
+            };
           if(item.match(RegExp('sign'))){
             signAmountListLabels.push(item);
             signAmountListData.push(Math.round(data[item]*100)/100);
+          };
+          if(item.match(RegExp('occupy'))){
+            occupyRateListLabels.push(item);
+            occupyRateListData.push(Math.round(data[item]*100)/100);
+          };
+          if(item.match(RegExp('cost'))){
+            costPerUserListLabels.push(item);
+            costPerUserListData.push(Math.round(data[item]*100)/100);
           }
         });
       
         setOrderAmountList({labels: orderAmountListLabels, datasets: [{data: orderAmountListData}] });
         setSignAmountList({labels: signAmountListLabels, datasets: [{data: signAmountListData}] });
-
+        setOccupyRateList({labels: occupyRateListLabels, datasets: [{data: occupyRateListData}] });
+        setCostPerUserList({labels: costPerUserListLabels, datasets:[{data: costPerUserListData}]});
       return data;
     })
     .catch(function(err){
@@ -95,7 +111,7 @@ const Dashboard = () => {
           <AmountStatistic avgSignAmount={avgSignAmount} avgOrderAmount={avgOrderAmount} avgCostPerUser={avgCostPerUser} avgOccupyRate={avgOccupyRate}/>
         </Grid>
         <Grid item>
-          <Chart orderAmountList={orderAmountList} signAmountList={signAmountList}/>
+          <Chart orderAmountList={orderAmountList} signAmountList={signAmountList} occupyRateList={occupyRateList} costPerUserList={costPerUserList}/>
         </Grid>
       </Grid>
     </Container>

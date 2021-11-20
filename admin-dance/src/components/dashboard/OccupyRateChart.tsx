@@ -1,16 +1,16 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartData } from '../../interfaces/Dashboard';
+import { ChartData, IOccupyProps } from '../../interfaces/Dashboard';
 
 
-const OccupyRateChart =() =>{
+const OccupyRateChart:React.FC<IOccupyProps> =({occupyRateList}) =>{
 
     const data: ChartData ={
-        labels:['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels:occupyRateList?.labels,
         datasets: [
             {
               label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
+              data: occupyRateList.datasets[0].data,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

@@ -34,7 +34,9 @@ export interface Place{
 
 export interface IChartProps{
     orderAmountList: ChartData,
-    signAmountList: ChartData
+    signAmountList: ChartData,
+    occupyRateList: ChartData,
+    costPerUserList: ChartData
 }
 
 export interface IOrderProps{
@@ -43,4 +45,12 @@ export interface IOrderProps{
 
 export interface ISignProps{
     signAmountList: ChartData,
+}
+
+export interface IOccupyProps{
+    occupyRateList: ChartData,
+}
+
+export interface ICostProps{
+    costPerUserList: ChartData,
 }

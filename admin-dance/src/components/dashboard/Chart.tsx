@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Chart:React.FC<IChartProps> = ({orderAmountList, signAmountList}) => {
+const Chart:React.FC<IChartProps> = ({orderAmountList, signAmountList, occupyRateList, costPerUserList}) => {
   const classes = useStyles();
   
   return (
@@ -49,7 +49,7 @@ const Chart:React.FC<IChartProps> = ({orderAmountList, signAmountList}) => {
           <Box className={classes.box}>
             <Typography variant='h4'>Occupy Rate</Typography>
             <Typography variant='h2' fontWeight='700'>
-              <OccupyRateChart />
+              <OccupyRateChart occupyRateList={occupyRateList} />
             </Typography>
           </Box>
         </Grid>
@@ -57,7 +57,7 @@ const Chart:React.FC<IChartProps> = ({orderAmountList, signAmountList}) => {
           <Box className={classes.box}>
             <Typography variant='h4'>Cost Per User</Typography>
             <Typography variant='h2' fontWeight='700'>
-              <CostPerUserChart />
+              <CostPerUserChart costPerUserList={costPerUserList}/>
             </Typography>
           </Box>
         </Grid>

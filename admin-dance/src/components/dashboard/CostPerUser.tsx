@@ -1,16 +1,16 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartData } from '../../interfaces/Dashboard';
+import { ChartData, ICostProps } from '../../interfaces/Dashboard';
 
 
-const CostPerUserChart =() =>{
+const CostPerUserChart:React.FC<ICostProps> =({costPerUserList}) =>{
 
     const data: ChartData ={
-        labels:['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels:costPerUserList?.labels,
         datasets: [
             {
               label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
+              data: costPerUserList.datasets[0].data,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
