@@ -9,7 +9,7 @@ const OrderAmountChart:React.FC<IOrderProps> =({orderAmountList}) =>{
         labels: orderAmountList?.labels,
         datasets: [
             {
-              label: '# of Votes',
+              label: 'empty is the AVG amount',
               data: orderAmountList.datasets[0].data,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',

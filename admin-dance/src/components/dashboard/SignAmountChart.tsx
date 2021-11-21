@@ -8,7 +8,7 @@ const SignAmountChart:React.FC<ISignProps> = ({signAmountList}) =>{
         labels:signAmountList?.labels,
         datasets: [
             {
-              label: '# of Votes',
+              label: 'empty is the AVG amount',
               data: signAmountList.datasets[0].data,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',

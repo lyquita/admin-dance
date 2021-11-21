@@ -9,7 +9,7 @@ const CostPerUserChart:React.FC<ICostProps> =({costPerUserList}) =>{
         labels:costPerUserList?.labels,
         datasets: [
             {
-              label: '# of Votes',
+              label: 'empty is the AVG amount',
               data: costPerUserList.datasets[0].data,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
