@@ -67,22 +67,24 @@ const Dashboard = () => {
   
         Object.keys(data).forEach((item)=>{
           if(item.match(RegExp('order'))){
-              orderAmountListLabels.push(item);
+              orderAmountListLabels.push(item.slice(0, -16));
               orderAmountListData.push(Math.round(data[item]*100)/100);
             };
           if(item.match(RegExp('sign'))){
-            signAmountListLabels.push(item);
+            signAmountListLabels.push(item.slice(0, -15));
             signAmountListData.push(Math.round(data[item]*100)/100);
           };
           if(item.match(RegExp('occupy'))){
-            occupyRateListLabels.push(item);
+            occupyRateListLabels.push(item.slice(0, -15));
             occupyRateListData.push(Math.round(data[item]*100)/100);
           };
           if(item.match(RegExp('cost'))){
-            costPerUserListLabels.push(item);
+            costPerUserListLabels.push(item.slice(0, -16));
             costPerUserListData.push(Math.round(data[item]*100)/100);
           }
         });
+
+
       
         setOrderAmountList({labels: orderAmountListLabels, datasets: [{data: orderAmountListData}] });
         setSignAmountList({labels: signAmountListLabels, datasets: [{data: signAmountListData}] });
