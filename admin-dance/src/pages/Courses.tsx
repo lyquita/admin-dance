@@ -1,10 +1,45 @@
 import { Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
 import CourseTable from '../components/courses/Table';
 import Toolkit from '../components/courses/Toolkit';
+import { ITable, ITableProps } from '../interfaces/Course';
+
 
 const Course = () =>{
 
+    const navigate = useNavigate();
+
+    const [tableData, setTableData] = useState([]);
+
+    useEffect(()=>{
+
+        // axios before
+    axios.interceptors.request.use( config =>{
+        // @ts-ignore
+        config.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
+        return config;
+      }, err =>{
+  
+        return Promise.reject(err);
+      }  );
+  
+
+        axios('/course/')
+        .then((res)=>{
+            console.log('res', res.data);
+            setTableData(res.data);
+        })
+        .catch(function(err){
+            if(err.response.status == '401'){
+              navigate('/login', {replace:true});
+            }
+            return Promise.reject(err);
+          });
+
+
+    }, []);
 
     return (
         <>
@@ -13,7 +48,7 @@ const Course = () =>{
                     <Toolkit />
                 </Grid>
                 <Grid item width='100%'>
-                    <CourseTable />
+                    <CourseTable tableData={tableData}/>
                 </Grid>
             </Grid>
         </>

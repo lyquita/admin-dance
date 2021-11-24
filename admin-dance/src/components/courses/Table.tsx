@@ -9,10 +9,14 @@ import {
   TableFooter,
   TablePagination,
   TableContainer,
+  Avatar,
 } from '@mui/material';
 import React from 'react';
+import { ITable, ITableProps } from '../../interfaces/Course';
 
-const CourseTable = () => {
+const CourseTable: React.FC<ITableProps> = ({ tableData }) => {
+  console.log('table', tableData);
+
   return (
     <>
       <Container sx={{ width: '100%', padding: '30px 0' }} maxWidth={false}>
@@ -32,53 +36,32 @@ const CourseTable = () => {
             <Table stickyHeader aria-label='sticky table'>
               <TableHead>
                 <TableRow>
-                  <TableCell> dd</TableCell>
-                  <TableCell> mm</TableCell>
-                  <TableCell> dcc</TableCell>
+                  <TableCell> Avatar</TableCell>
+                  <TableCell> Coach Name</TableCell>
+                  <TableCell> Course Name</TableCell>
+                  <TableCell> Course Date</TableCell>
+                  <TableCell> Place Name</TableCell>
+                  <TableCell> Signed Amount</TableCell>
+                  <TableCell> Occupy Rate</TableCell>
+                  <TableCell> Cost Per User</TableCell>
+                  <TableCell> Fee </TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                  <TableCell>33</TableCell>
-                </TableRow>
-              </TableBody>
+              {tableData.map((item) => (
+                <TableBody key={item.id}>
+                  <TableCell > 
+                    <Avatar src={item.imageUrl}></Avatar>
+                  </TableCell>
+                  <TableCell > {item.coachname} </TableCell>
+                  <TableCell > {item.coursename} </TableCell>
+                  <TableCell > {item.coursedate} </TableCell>
+                  <TableCell > {item.placename} </TableCell>
+                  <TableCell > {item.signamount} </TableCell>
+                  <TableCell > { Math.round(item.signamount / item.accommodateAmount * 100)} % </TableCell>
+                  <TableCell > { Math.round(item.fee/ item.signamount *100 ) / 100} </TableCell>
+                  <TableCell > {item.fee} </TableCell>
+                </TableBody>
+              ))}
             </Table>
           </TableContainer>
           <TablePagination
