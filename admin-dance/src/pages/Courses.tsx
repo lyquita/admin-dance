@@ -10,7 +10,7 @@ import { ITable, ITableProps } from '../interfaces/Course';
 const Course = () =>{
 
     const navigate = useNavigate();
-
+    const [count, setCount]= useState<number>(20);
     const [tableData, setTableData] = useState([]);
 
     useEffect(()=>{
@@ -28,7 +28,8 @@ const Course = () =>{
 
         axios('/course/')
         .then((res)=>{
-            console.log('res', res.data);
+            console.log('res', );
+            setCount( parseInt(res.headers['content-range']) );
             setTableData(res.data);
         })
         .catch(function(err){
@@ -48,7 +49,7 @@ const Course = () =>{
                     <Toolkit />
                 </Grid>
                 <Grid item width='100%'>
-                    <CourseTable tableData={tableData}/>
+                    <CourseTable tableData={tableData} count={count}/>
                 </Grid>
             </Grid>
         </>

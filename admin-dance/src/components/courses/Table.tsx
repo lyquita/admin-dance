@@ -11,11 +11,22 @@ import {
   TableContainer,
   Avatar,
 } from '@mui/material';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ITable, ITableProps } from '../../interfaces/Course';
 
-const CourseTable: React.FC<ITableProps> = ({ tableData }) => {
-  console.log('table', tableData);
+const CourseTable: React.FC<ITableProps> = ({ tableData, count }) => {
+
+const [rowsPerPage, setRowsPerPage] = React.useState(5);
+const [page, setPage] = React.useState(0);
+
+const handleChangeRowsPerPage = ( event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) =>{
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+};
+  
+const handleChangePage = ( event: React.MouseEvent<HTMLButtonElement> | null, newPage: number ) =>{
+  setPage(newPage);
+};
 
   return (
     <>
@@ -32,7 +43,7 @@ const CourseTable: React.FC<ITableProps> = ({ tableData }) => {
             flexDirection: 'column',
           }}
         >
-          <TableContainer sx={{ maxHeight: 800 }}>
+          <TableContainer sx={{ maxHeight: 600 }}>
             <Table stickyHeader aria-label='sticky table'>
               <TableHead>
                 <TableRow>
@@ -47,30 +58,33 @@ const CourseTable: React.FC<ITableProps> = ({ tableData }) => {
                   <TableCell> Fee </TableCell>
                 </TableRow>
               </TableHead>
-              {tableData.map((item) => (
-                <TableBody key={item.id}>
-                  <TableCell > 
-                    <Avatar src={item.imageUrl}></Avatar>
-                  </TableCell>
-                  <TableCell > {item.coachname} </TableCell>
-                  <TableCell > {item.coursename} </TableCell>
-                  <TableCell > {item.coursedate} </TableCell>
-                  <TableCell > {item.placename} </TableCell>
-                  <TableCell > {item.signamount} </TableCell>
-                  <TableCell > { Math.round(item.signamount / item.accommodateAmount * 100)} % </TableCell>
-                  <TableCell > { Math.round(item.fee/ item.signamount *100 ) / 100} </TableCell>
-                  <TableCell > {item.fee} </TableCell>
-                </TableBody>
-              ))}
+              {
+                (rowsPerPage > 0 ? tableData.slice(page * rowsPerPage, (page * rowsPerPage) + rowsPerPage): tableData).map((item) => (
+                  <TableBody key={item.id}>
+                    <TableCell > 
+                      <Avatar src={item.imageUrl}></Avatar>
+                    </TableCell>
+                    <TableCell > {item.coachname} </TableCell>
+                    <TableCell > {item.coursename} </TableCell>
+                    <TableCell > {item.coursedate} </TableCell>
+                    <TableCell > {item.placename} </TableCell>
+                    <TableCell > {item.signamount} </TableCell>
+                    <TableCell > { Math.round(item.signamount / item.accommodateAmount * 100)} % </TableCell>
+                    <TableCell > { Math.round(item.fee/ item.signamount *100 ) / 100} </TableCell>
+                    <TableCell > {item.fee} </TableCell>
+                  </TableBody>
+                ))
+              }
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
+            rowsPerPageOptions={[10, 25, 50, 100]}
             component='div'
-            count={15}
-            rowsPerPage={20}
-            page={5}
-            onPageChange={() => {}}
+            count={count}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Box>
       </Container>
