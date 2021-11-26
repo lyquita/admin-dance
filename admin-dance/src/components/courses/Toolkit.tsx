@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Autocomplete,
   Box,
+  Button,
   Container,
   Grid,
   Stack,
@@ -14,9 +15,9 @@ import axios from 'axios';
 import { IToolkitProps } from '../../interfaces/Course';
 
 
-const Toolkit:React.FC<IToolkitProps> = ({ coachname, coursename, placename, setCoachName, setCourseName, setPlaceName  }) => {
+const Toolkit:React.FC<IToolkitProps> = ({ coachname, coursename, placename, datebefore, dateafter, setCoachName, setCourseName, setPlaceName, setDatebefore, setDateafter  }) => {
 
-const [inputValue, setInputValue] = useState<string>('');
+const moment = require('moment');
 const [coachNameOptions, setCoachNameOptions] = useState([]);
 const [placeNameOptions, setPlaceNameOptions] = useState([]);
 const [courseNameOptions, setCourseNameOptions] = useState([]);
@@ -32,6 +33,18 @@ const handlePlacename = (e: React.SyntheticEvent, value: string) => {
 
 const handleCoursename = (e: React.SyntheticEvent, value: string) => {
   setCourseName(value);
+};
+
+const handleDateafter = (e: React.SyntheticEvent, value: string) => {
+  setDateafter(moment(e).format('yyyy-MM-DD'));
+};
+
+const handleDatebefore = (e: React.SyntheticEvent, value: string) => {
+  setDatebefore(moment(e).format('yyyy-MM-DD'));
+};
+
+const handleReset = () => {
+  window.location.reload();
 };
 
 useEffect(()=>{
@@ -107,8 +120,8 @@ useEffect(()=>{
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label='Date After'
-                  value={()=>{}}
-                  onChange={() => {}}
+                  value={dateafter}
+                  onChange={handleDateafter}
                   renderInput={(params) => <TextField {...params} 
                   fullWidth={true}
                   />
@@ -120,14 +133,18 @@ useEffect(()=>{
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label='Date Before'
-                  value={()=>{}}
-                  onChange={() => {}}
+                  value={datebefore}
+                  onChange={handleDatebefore}
                   renderInput={(params) => <TextField {...params}
                   fullWidth={true}
                   />}
                 />
               </LocalizationProvider>
+            
             </Grid>
+            <Grid item>
+                <Button  variant="contained" onClick={handleReset}>Reset</Button>
+              </Grid>
           </Grid>
         </Box>
       </Container>

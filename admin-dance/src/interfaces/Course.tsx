@@ -20,7 +20,11 @@ export interface IToolkitProps {
     coachname?: string,
     coursename?: string,
     placename?: string,
+    datebefore?: Date,
+    dateafter?: Date,
     setCoachName?: (coachname:string)=>void,
     setPlaceName?: (place:string)=>void,
-    setCourseName?: (coursename:string)=>void
+    setCourseName?: (coursename:string)=>void,
+    setDatebefore?: (datebefore:Date)=>void,
+    setDateafter?: (dateafter:Date)=>void 
 }
