@@ -12,6 +12,10 @@ const Course = () =>{
     const navigate = useNavigate();
     const [count, setCount]= useState<number>(20);
     const [tableData, setTableData] = useState([]);
+    const [coachname, setCoachname] = useState<string>('');
+    const [placename, setPlacename] = useState<string>('');
+    const [coursename, setCoursename] = useState<string>('');
+
 
     useEffect(()=>{
 
@@ -26,7 +30,10 @@ const Course = () =>{
       }  );
   
 
-        axios('/course/')
+    const config = {coachname, placename, coursename};
+
+
+        axios('/course/', {params: config})
         .then((res)=>{
             console.log('res', );
             setCount( parseInt(res.headers['content-range']) );
@@ -40,13 +47,14 @@ const Course = () =>{
           });
 
 
-    }, []);
+    }, [coachname, coursename, placename]);
+
 
     return (
         <>
             <Grid container direction='column' sx={{padding:'100px 20px 50px 20px'}}>
                 <Grid item width='100%'>
-                    <Toolkit />
+                    <Toolkit coachname={coachname} coursename={coursename} placename={placename} setCoachName={setCoachname} setCourseName={setCoursename} setPlaceName={setPlacename}/>
                 </Grid>
                 <Grid item width='100%'>
                     <CourseTable tableData={tableData} count={count}/>

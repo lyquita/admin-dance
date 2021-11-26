@@ -16,7 +16,7 @@ import { ITable, ITableProps } from '../../interfaces/Course';
 
 const CourseTable: React.FC<ITableProps> = ({ tableData, count }) => {
 
-const [rowsPerPage, setRowsPerPage] = React.useState(5);
+const [rowsPerPage, setRowsPerPage] = React.useState(10);
 const [page, setPage] = React.useState(0);
 
 const handleChangeRowsPerPage = ( event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) =>{

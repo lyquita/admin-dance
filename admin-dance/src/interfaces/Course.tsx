@@ -15,3 +15,12 @@ export interface ITableProps{
     count: number,
 
 }
+
+export interface IToolkitProps {
+    coachname?: string,
+    coursename?: string,
+    placename?: string,
+    setCoachName?: (coachname:string)=>void,
+    setPlaceName?: (place:string)=>void,
+    setCourseName?: (coursename:string)=>void
+}

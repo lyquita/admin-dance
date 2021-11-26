@@ -11,16 +11,27 @@ import { DatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import axios from 'axios';
+import { IToolkitProps } from '../../interfaces/Course';
 
 
-const Toolkit = () => {
+const Toolkit:React.FC<IToolkitProps> = ({ coachname, coursename, placename, setCoachName, setCourseName, setPlaceName  }) => {
 
+const [inputValue, setInputValue] = useState<string>('');
 const [coachNameOptions, setCoachNameOptions] = useState([]);
 const [placeNameOptions, setPlaceNameOptions] = useState([]);
 const [courseNameOptions, setCourseNameOptions] = useState([]);
 
-const handleOpenField = (e: React.SyntheticEvent) =>{
-  console.log('???', (e.target as HTMLInputElement).id);
+
+const handleCoacnname = (e: React.SyntheticEvent, value: string) => {
+  setCoachName(value);
+};
+
+const handlePlacename = (e: React.SyntheticEvent, value: string) => {
+  setPlaceName(value);
+};
+
+const handleCoursename = (e: React.SyntheticEvent, value: string) => {
+  setCourseName(value);
 };
 
 useEffect(()=>{
@@ -38,12 +49,6 @@ useEffect(()=>{
 
 }, []);
   
-
-
-  const options = [
-    { title: 'The Shawshank Redemption', year: 1994 },
-    { title: 'The Godfather', year: 1972 },
-  ];
 
   return (
     <>
@@ -68,7 +73,7 @@ useEffect(()=>{
                 sx={{ width: { md: 300, sm: 200 } }}
                 options={coachNameOptions.map((option) => option.coachname)}
                 freeSolo
-                onOpen={handleOpenField}
+                onChange={handleCoacnname}
                 renderInput={(params) => (
                   <TextField {...params} label='Select Coach' />
                 )}
@@ -80,6 +85,7 @@ useEffect(()=>{
                 sx={{ width: { md: 300, sm: 200 } }}
                 options={placeNameOptions.map((option) => option.placename)}
                 freeSolo
+                onChange={handlePlacename}
                 renderInput={(params) => (
                   <TextField {...params} label='Select PlaceName' />
                 )}
@@ -91,6 +97,7 @@ useEffect(()=>{
                 sx={{ width: { md: 300, sm: 200 } }}
                 options={courseNameOptions.map((option) => option.coursename)}
                 freeSolo
+                onChange={handleCoursename}
                 renderInput={(params) => (
                   <TextField {...params} label='Select CourseType' />
                 )}
