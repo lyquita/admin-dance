@@ -6,7 +6,7 @@ import CourseTable from '../components/courses/Table';
 import Toolkit from '../components/courses/Toolkit';
 import { ITable, ITableProps } from '../interfaces/Course';
 import Layout from '../components/global/Layout';
-
+import axiosInstance from '../untils/axiosInstance';
 
 const Course = () =>{
 
@@ -22,33 +22,21 @@ const Course = () =>{
 
     useEffect(()=>{
 
-        // axios before
-    axios.interceptors.request.use( config =>{
-        // @ts-ignore
-        config.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
-        return config;
-      }, err =>{
-  
-        return Promise.reject(err);
-      }  );
-  
 
     const config = {coachname, placename, coursename, coursedate_before, coursedate_after};
 
 
-        axios('/course/', {params: config})
-        .then((res)=>{
-            console.log('res', );
-            setCount( parseInt(res.headers['content-range']) );
-            setTableData(res.data);
-        })
-        .catch(function(err){
-            if(err.response.status == '401'){
-              navigate('/login', {replace:true});
-            }
-            return Promise.reject(err);
-          });
-
+    axiosInstance.get('/course/', {params: config})
+    .then((res)=>{
+        setCount( parseInt(res.headers['content-range']) );
+        setTableData(res.data);
+    })
+    .catch(function(err){
+        if(err.response.status == '401'){
+        //   navigate('/login', {replace:true});
+        }
+        return Promise.reject(err);
+      });
 
     }, [coachname, coursename, placename, coursedate_before, coursedate_after]);
 

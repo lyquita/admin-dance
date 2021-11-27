@@ -14,6 +14,7 @@ import { User } from '../interfaces/Login';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import axiosInstance from '../untils/axiosInstance';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Login: React.FC = () => {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    axios
+    axiosInstance
       .post('/token/', loginForm)
       .then(
         (res) => {

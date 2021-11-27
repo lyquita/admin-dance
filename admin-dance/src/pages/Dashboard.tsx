@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { ChartData, IAmountStatistics, Dataset } from '../interfaces/Dashboard';
 import Layout  from '../components/global/Layout';
+import axiosInstance from '../untils/axiosInstance';
 
 
 
@@ -31,18 +32,7 @@ const Dashboard = () => {
 
   useEffect(()=>{
 
-    // axios before
-    axios.interceptors.request.use( config =>{
-      // @ts-ignore
-      config.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
-      return config;
-    }, err =>{
-
-      return Promise.reject(err);
-    }  );
-
-
-    axios(`/course/${inputValue}/last_seven_days`)
+    axiosInstance(`/course/${inputValue}/last_seven_days`)
     .then((res)=>{
       const data = res.data.results[0];
       setAvgOrderAmount(data.avg_orderamount);
