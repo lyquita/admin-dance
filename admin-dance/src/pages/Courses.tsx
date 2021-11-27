@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import CourseTable from '../components/courses/Table';
 import Toolkit from '../components/courses/Toolkit';
 import { ITable, ITableProps } from '../interfaces/Course';
+import Layout from '../components/global/Layout';
 
 
 const Course = () =>{
@@ -55,6 +56,7 @@ const Course = () =>{
 
     return (
         <>
+        <Layout />
             <Grid container direction='column' sx={{padding:'100px 20px 50px 20px'}}>
                 <Grid item width='100%'>
                     <Toolkit coachname={coachname} coursename={coursename} placename={placename} datebefore={coursedate_before} dateafter={coursedate_after} setCoachName={setCoachname} setCourseName={setCoursename} setPlaceName={setPlacename} setDatebefore={setDatebefore} setDateafter={setDateafter}/>

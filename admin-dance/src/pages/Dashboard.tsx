@@ -8,6 +8,7 @@ import Chart from '../components/dashboard/Chart';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { ChartData, IAmountStatistics, Dataset } from '../interfaces/Dashboard';
+import Layout  from '../components/global/Layout';
 
 
 
@@ -105,6 +106,7 @@ const Dashboard = () => {
 
   return (
     <Container style={{ padding: '100px 20px 50px 20px' }} maxWidth={false}>
+      <Layout />
       <Grid container direction='column' spacing={3} alignContent='center'>
         <Grid item>
           <Toolkit inputValue = { inputValue } setInputValue = { setInputValue }/>
