@@ -36,7 +36,7 @@ const Login: React.FC = () => {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    axiosInstance
+    axios
       .post('/token/', loginForm)
       .then(
         (res) => {

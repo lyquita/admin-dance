@@ -84,9 +84,13 @@ const Dashboard = () => {
       return data;
     })
     .catch(function(err){
-      if(err.response.status == '401'){
-        navigate('/login', {replace:true});
+      if(err.response){
+        if(err.response.status == '401'){
+          console.log('401err', err);
+          navigate('/login', {replace:true});
+        }
       }
+      console.log('status err', err);
       return Promise.reject(err);
     });
 
