@@ -15,7 +15,7 @@ import axiosInstance from '../untils/axiosInstance';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState<string>('huanyuhui');
+  const [inputValue, setInputValue] = useState<string>('环宇荟');
 
   const [avgOrderAmount, setAvgOrderAmount] = useState<number>(20);
   const [avgSignAmount, setAvgSignAmount] = useState<number>(20);
@@ -32,13 +32,14 @@ const Dashboard = () => {
 
   useEffect(()=>{
 
-    axiosInstance(`/course/${inputValue}/last_seven_days`)
+    axiosInstance(`/course/last_seven_days/${inputValue}/`)
     .then((res)=>{
-      const data = res.data.results[0];
-      setAvgOrderAmount(data.avg_orderamount);
-      setAvgSignAmount(data.avg_signamount);
+      console.log('res', res);
+      const data = res.data;
+      setAvgOrderAmount(data.avg_order_amount);
+      setAvgSignAmount(data.avg_sign_amount);
       setAvgOccupyRate(data.avg_occupyrate);
-      setAvgCostPerUser(data.avg_costperuser);
+      setAvgCostPerUser(data.avg_cost_per_user);
 
       let orderAmountListLabels: string[] = [];
       let orderAmountListData: number[] = [];

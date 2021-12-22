@@ -26,7 +26,7 @@ const Course = () =>{
     const config = {coachname, placename, coursename, coursedate_before, coursedate_after};
 
 
-    axiosInstance.get('/course/', {params: config})
+    axiosInstance.get('/course/all', {params: config})
     .then((res)=>{
         setCount( parseInt(res.headers['content-range']) );
         setTableData(res.data);

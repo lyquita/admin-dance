@@ -37,33 +37,4 @@ axiosInstance.interceptors.request.use(req =>{
 
 }, err =>{} );
 
-// axiosInstance.interceptors.request.use( req => {
-
-    // if(!authToken){
-    //     authToken =  localStorage.getItem('access_token');
-    //     req.headers.Authorization = `Bearer ${authToken}`;
-    // };
-
-    // const user: any = jwt_decode(authToken);
-    // const isExpired = dayjs.unix(user.exp).diff(dayjs())<1 ;
-
-
-    // if(!isExpired) return req;
-
-    // axios.post(`${baseURL}/token/refresh/`, {
-    //     refresh: refreshToken
-    //   })
-    //   .then((response)=>{
-    //     localStorage.setItem('access_token', response.data);
-    //     req.headers.Authorization = `Bearer ${response.data.access}`;
-    //   })
-    //   .catch((err)=>{
-    //     console.log('refresh token has beend expired.');
-    //     Promise.reject(err);
-    //     // navigate('/login', {replace : true});
-    //   });
-
-    // return req;
-// });
-
 export default axiosInstance;
