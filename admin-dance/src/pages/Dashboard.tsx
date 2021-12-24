@@ -87,7 +87,6 @@ const Dashboard = () => {
     .catch(function(err){
       if(err.response){
         if(err.response.status == '401'){
-          console.log('401err', err);
           navigate('/login', {replace:true});
         }
       }

@@ -40,6 +40,7 @@ const Login: React.FC = () => {
       .post('/auth/login', loginForm)
       .then(
         (res) => {
+          console.log('res', res.data.access_token);
           localStorage.setItem('access_token', res.data.access_token),
           localStorage.setItem('refresh_token', res.data.refresh_token),
           navigate('/', {replace:true});

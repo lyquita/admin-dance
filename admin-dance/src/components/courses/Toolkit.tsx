@@ -13,6 +13,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import axios from 'axios';
 import { IToolkitProps } from '../../interfaces/Course';
+import axiosInstance from '../../untils/axiosInstance';
 
 
 const Toolkit:React.FC<IToolkitProps> = ({ coachname, coursename, placename, datebefore, dateafter, setCoachName, setCourseName, setPlaceName, setDatebefore, setDateafter  }) => {
@@ -48,15 +49,15 @@ const handleReset = () => {
 };
 
 useEffect(()=>{
-  axios('course/coachname')
+  axiosInstance('coaches/all')
   .then( res => setCoachNameOptions(res.data) )
   .catch( err => Promise.reject(err));
 
-  axios('course/placename')
+  axiosInstance('places/all')
   .then( res => setPlaceNameOptions(res.data))
   .catch( err => Promise.reject(err));
 
-  axios('course/coursename')
+  axiosInstance('course/coursename')
   .then( res => setCourseNameOptions(res.data))
   .catch( err => Promise.reject(err));
 

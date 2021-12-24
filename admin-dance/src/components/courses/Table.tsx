@@ -14,10 +14,9 @@ import {
 import React, { useState, useEffect } from 'react';
 import { ITable, ITableProps } from '../../interfaces/Course';
 
-const CourseTable: React.FC<ITableProps> = ({ tableData, count }) => {
+const CourseTable: React.FC<ITableProps> = ({ tableData, count, rowsPerPage, setRowsPerPage, page, setPage }) => {
 
-const [rowsPerPage, setRowsPerPage] = React.useState(10);
-const [page, setPage] = React.useState(0);
+console.log('tabale', tableData);
 
 const handleChangeRowsPerPage = ( event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) =>{
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -59,20 +58,20 @@ const handleChangePage = ( event: React.MouseEvent<HTMLButtonElement> | null, ne
                 </TableRow>
               </TableHead>
               {
-                (rowsPerPage > 0 ? tableData.slice(page * rowsPerPage, (page * rowsPerPage) + rowsPerPage): tableData).map((item) => (
+                tableData.map((item) => (
                   <TableBody key={item.id}>
-                    <TableCell > 
-                      <Avatar src={item.imageUrl}></Avatar>
-                    </TableCell>
-                    <TableCell > {item.coachname} </TableCell>
-                    <TableCell > {item.coursename} </TableCell>
-                    <TableCell > {item.coursedate} </TableCell>
-                    <TableCell > {item.placename} </TableCell>
-                    <TableCell > {item.signamount} </TableCell>
-                    <TableCell > { Math.round(item.signamount / item.accommodateAmount * 100)} % </TableCell>
-                    <TableCell > { Math.round(item.fee/ item.signamount *100 ) / 100} </TableCell>
-                    <TableCell > {item.fee} </TableCell>
-                  </TableBody>
+                  <TableCell > 
+                    <Avatar src={item.imageurl}></Avatar>
+                  </TableCell>
+                  <TableCell > {item.coachname} </TableCell>
+                  <TableCell > {item.coursename} </TableCell>
+                  <TableCell > {item.coursedate} </TableCell>
+                  <TableCell > {item.placename} </TableCell>
+                  <TableCell > {item.signamount} </TableCell>
+                  <TableCell > { Math.round(item.signamount / item.accommodateamount * 100)} % </TableCell>
+                  <TableCell > { Math.round(item.fee/ item.signamount *100 ) / 100} </TableCell>
+                  <TableCell > {item.fee} </TableCell>
+                </TableBody>
                 ))
               }
             </Table>

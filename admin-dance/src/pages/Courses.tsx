@@ -18,27 +18,29 @@ const Course = () =>{
     const [coursename, setCoursename] = useState<string>('');
     const [coursedate_before, setDatebefore] = useState<Date | null> (null);
     const [coursedate_after, setDateafter] = useState<Date | null>(null);
+    const [page_size, setPageSize] = React.useState(10);
+    const [page, setPage] = React.useState(0);
 
 
     useEffect(()=>{
 
-
-    const config = {coachname, placename, coursename, coursedate_before, coursedate_after};
+    const config = {coachname, placename, coursename, coursedate_before, coursedate_after, page_size, page};
 
 
     axiosInstance.get('/course/all', {params: config})
     .then((res)=>{
-        setCount( parseInt(res.headers['content-range']) );
-        setTableData(res.data);
+        setCount(res.data.count);
+        setTableData(res.data.rows);
     })
     .catch(function(err){
         if(err.response.status == '401'){
-        //   navigate('/login', {replace:true});
+          navigate('/login', {replace:true});
         }
         return Promise.reject(err);
       });
 
-    }, [coachname, coursename, placename, coursedate_before, coursedate_after]);
+    }, [coachname, coursename, placename, coursedate_before, coursedate_after, page_size, page]);
+
 
 
 
@@ -50,7 +52,7 @@ const Course = () =>{
                     <Toolkit coachname={coachname} coursename={coursename} placename={placename} datebefore={coursedate_before} dateafter={coursedate_after} setCoachName={setCoachname} setCourseName={setCoursename} setPlaceName={setPlacename} setDatebefore={setDatebefore} setDateafter={setDateafter}/>
                 </Grid>
                 <Grid item width='100%'>
-                    <CourseTable tableData={tableData} count={count}/>
+                    <CourseTable tableData={tableData} count={count} rowsPerPage={page_size} setRowsPerPage={setPageSize} page={page} setPage={setPage}/>
                 </Grid>
             </Grid>
         </>

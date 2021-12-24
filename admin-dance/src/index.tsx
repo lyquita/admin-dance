@@ -5,8 +5,8 @@ import './index.css';
 import App from './App';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://api-dance.hireoo.fun';
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
+axios.defaults.baseURL = 'http://localhost:5000';
+// axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
 
 ReactDOM.render(
     <BrowserRouter>
