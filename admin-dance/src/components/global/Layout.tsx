@@ -21,6 +21,7 @@ import { Avatar, Button, Grid, ListItemButton, Stack } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { LogOut } from 'react-feather';
 import { LayoutProps } from '../../interfaces/Layout';
+import axiosInstance from '../../untils/axiosInstance';
 
 const drawerWidth = 200;
 
@@ -93,6 +94,21 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [username, setUsername] = React.useState('Username');
+  const [avatar, setAvatar] = React.useState(null);
+
+  React.useEffect(()=>{
+
+  axiosInstance.get('/user/info')
+  .then(res=> {
+    if(res.data){
+      setUsername(res.data.username);
+      setAvatar(res.data.avatar);
+    }}
+    )
+  .catch(err=> Promise.reject(err));
+
+  }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -159,17 +175,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   sx={{
                     width: '100px',
                     height: '100px',
-                    background: 'yellow',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}
                 >
-                  <Avatar alt='hireoo'>
-                    <Chigua />
+                  <Avatar alt='avatar' src={avatar} sx={{height:'100%', width:'100%'}}>
                   </Avatar>
                 </Box>
-                <Typography>Hireoo</Typography>
+                <Typography>{username}</Typography>
               </Stack>
             </Grid>
           </Grid>
