@@ -11,6 +11,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import EditIcon from '@mui/icons-material/Edit';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -22,6 +23,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LogOut } from 'react-feather';
 import { LayoutProps } from '../../interfaces/Layout';
 import axiosInstance from '../../untils/axiosInstance';
+
 
 const drawerWidth = 200;
 
@@ -122,6 +124,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     navigate('/login');
   };
 
+  const handleEdit = () => {
+    navigate('/user/hireoo');
+  };
+
   return (
     <Box>
       <CssBaseline />
@@ -183,7 +189,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <Avatar alt='avatar' src={avatar} sx={{height:'100%', width:'100%'}}>
                   </Avatar>
                 </Box>
-                <Typography>{username}</Typography>
+                <Box sx={{ display: 'flex'}}>
+                  <Typography >{username}</Typography>
+                  <EditIcon onClick={handleEdit} />
+                </Box>
               </Stack>
             </Grid>
           </Grid>
