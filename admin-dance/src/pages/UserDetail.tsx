@@ -34,6 +34,13 @@ const UserInfo = () => {
     // setSelectedFile(event.target);
     setSelectedFile((event.target as HTMLInputElement).files[0]);
     setSelectFlag(true);
+
+    const formData = new FormData();
+    formData.append('avatar', selectedFile);
+
+    axiosInstance.post('/user/avatar/upload', formData,  { headers: { 'Content-Type': 'multipart/form-data' } })
+    .then(data => console.log('upload', data))
+    .catch(err=> console.log('err', err));    
     console.log('file', (event.target as HTMLInputElement).files[0]);
   };
 
@@ -105,7 +112,6 @@ const UserInfo = () => {
                       sx={{ marginRight: '10px' }}
                     />
                     <TextField value={email} disabled>
-                      {' '}
                     </TextField>
                   </ListItem>
                   <ListItem>
@@ -114,7 +120,6 @@ const UserInfo = () => {
                       sx={{ marginRight: '10px' }}
                     />
                     <TextField value={admin} disabled>
-                      {' '}
                     </TextField>
                   </ListItem>
                   <ListItem>
@@ -123,12 +128,10 @@ const UserInfo = () => {
                       sx={{ marginRight: '10px' }}
                       onClick={() => setEdited('true')}
                     >
-                      {' '}
-                      Edit{' '}
+                      Edit
                     </Button>
                     <Button variant='outlined' onClick={() => navigate(-1)}>
-                      {' '}
-                      Back{' '}
+                      Back
                     </Button>
                   </ListItem>
                 </List>
@@ -161,27 +164,15 @@ const UserInfo = () => {
                 <ListItem>
                   <Avatar src={avatar} sx={{ width: '100px', height: '100px' }}>
                   </Avatar>
-                  {
-                    selectedFlag == false ? <> 
-                     <input type='file' id='image-upload' style={{'display': 'none'}} onChange={handleUpload}/>
-                      <label htmlFor='image-upload'>
-                      <Button component='span'>Upload</Button>
-                      </label>
-                    </> : <> 
                     <List>
                       <ListItem>
-                        <ListItemText >{selectedFile.name}</ListItemText>
                         <input type='file' id='image-upload' style={{'display': 'none'}} onChange={handleUpload}/>
-                      <label htmlFor='image-upload'>
-                        <ListItemButton component='span'>
-                          <CloseIcon />
-                          </ListItemButton>
+                        <label htmlFor='image-upload'>
+                        <Button component='span' variant='contained'>Upload</Button>
                           </label>
                       </ListItem>
                     </List>
-                    </>
-                  }
-                 
+
                 </ListItem>
                 <ListItem>
                   <ListItemText
