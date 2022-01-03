@@ -5,6 +5,8 @@ import {
   Grid,
   List,
   ListItem,
+  ListItemButton,
+  ListItemIcon,
   ListItemText,
   Stack,
   TextField,
@@ -16,6 +18,7 @@ import Layout from '../components/global/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../untils/axiosInstance';
+import CloseIcon from '@mui/icons-material/Close';
 
 const UserInfo = () => {
   const navigate = useNavigate();
@@ -25,10 +28,19 @@ const UserInfo = () => {
   const [admin, SetAdmin] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFlag, setSelectFlag] = useState(false);
 
-  // const handleUpload = (event) => {
-  //   setSelectedFile(event.target.files[0])
-  // };
+  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // setSelectedFile(event.target);
+    setSelectedFile((event.target as HTMLInputElement).files[0]);
+    setSelectFlag(true);
+    console.log('file', (event.target as HTMLInputElement).files[0]);
+  };
+
+  const handleSave = () => {
+    setEdited('false');
+    
+  };
 
   useEffect(() => {
     axiosInstance
@@ -149,10 +161,27 @@ const UserInfo = () => {
                 <ListItem>
                   <Avatar src={avatar} sx={{ width: '100px', height: '100px' }}>
                   </Avatar>
-                  <input type='file' id='image-upload' hidden/>
-                  <label htmlFor='image-upload'>
-                      <Button >Upload</Button>
-                  </label>
+                  {
+                    selectedFlag == false ? <> 
+                     <input type='file' id='image-upload' style={{'display': 'none'}} onChange={handleUpload}/>
+                      <label htmlFor='image-upload'>
+                      <Button component='span'>Upload</Button>
+                      </label>
+                    </> : <> 
+                    <List>
+                      <ListItem>
+                        <ListItemText >{selectedFile.name}</ListItemText>
+                        <input type='file' id='image-upload' style={{'display': 'none'}} onChange={handleUpload}/>
+                      <label htmlFor='image-upload'>
+                        <ListItemButton component='span'>
+                          <CloseIcon />
+                          </ListItemButton>
+                          </label>
+                      </ListItem>
+                    </List>
+                    </>
+                  }
+                 
                 </ListItem>
                 <ListItem>
                   <ListItemText
@@ -173,10 +202,9 @@ const UserInfo = () => {
                   <Button
                     variant='outlined'
                     sx={{ marginRight: '10px' }}
-                    onClick={() => setEdited('false')}
+                    onClick={handleSave}
                   >
-                    {' '}
-                    Save{' '}
+                    Save
                   </Button>
                 </ListItem>
               </List>
