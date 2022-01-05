@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Grid,
+  Input,
   List,
   ListItem,
   ListItemButton,
@@ -41,12 +42,21 @@ const UserInfo = () => {
     axiosInstance.post('/user/avatar/upload', formData,  { headers: { 'Content-Type': 'multipart/form-data' } })
     .then(data => console.log('upload', data))
     .catch(err=> console.log('err', err));    
-    console.log('file', (event.target as HTMLInputElement).files[0]);
   };
 
-  const handleSave = () => {
+  const updateUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername((event.target as HTMLInputElement).value);
+  };
+
+  const updateEmail = ( event: React.ChangeEvent<HTMLInputElement> ) => {
+    setEmail((event.target as HTMLInputElement).value);
+  } ;
+
+  const handleSubmit = () => {
+    axiosInstance.post('/user/info', {username: username, email: email})
+    .then(data => console.log('sbumit', data ))
+    .catch(err=> console.log('sbmit err', err));
     setEdited('false');
-    
   };
 
   useEffect(() => {
@@ -54,7 +64,6 @@ const UserInfo = () => {
       .get('/user/info')
       .then((res) => {
         if (res.data) {
-          console.log('info', res.data);
           setUsername(res.data.username);
           setEmail(res.data.email);
           SetAdmin(res.data.admin);
@@ -62,14 +71,13 @@ const UserInfo = () => {
         }
       })
       .catch((err) => Promise.reject(err));
-  }, [edited, username, email, admin]);
+  }, [edited, avatar]);
 
   return (
     <>
       {edited == 'false' ? (
         <>
           <>
-            {console.log('render', username)}
             <Layout />
             <Grid
               container
@@ -179,21 +187,21 @@ const UserInfo = () => {
                     primary='Username'
                     sx={{ marginRight: '10px' }}
                   />
-                  <TextField value={username}> </TextField>
+                  <TextField defaultValue={username} onChange={updateUsername}>  </TextField>
                 </ListItem>
                 <ListItem>
                   <ListItemText primary='Email' sx={{ marginRight: '10px' }} />
-                  <TextField value={email}> </TextField>
+                  <TextField defaultValue={email} onChange={updateEmail}> </TextField>
                 </ListItem>
                 <ListItem>
                   <ListItemText primary='Admin' sx={{ marginRight: '10px' }} />
-                  <TextField value={admin}> </TextField>
+                  <TextField value={admin} disabled> </TextField>
                 </ListItem>
                 <ListItem>
                   <Button
                     variant='outlined'
                     sx={{ marginRight: '10px' }}
-                    onClick={handleSave}
+                    onClick={handleSubmit}
                   >
                     Save
                   </Button>

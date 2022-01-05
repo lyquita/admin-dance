@@ -110,7 +110,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     )
   .catch(err=> Promise.reject(err));
 
-  }, []);
+  }, [avatar]);
 
   const handleDrawerOpen = () => {
     setOpen(true);

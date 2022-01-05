@@ -25,7 +25,7 @@ axiosInstance.interceptors.request.use(req =>{
     req.headers.Authorization = `Bearer ${authToken}`;
     if(!isExpired) return req;
 
-    axios.post(`${baseURL}/auth/refresh`, { 
+    axios.post(`${baseURL}auth/refresh`, { 
       refresh_token: refreshToken
      })
      .then(res => localStorage.setItem('access_token', res.data.access_token))
