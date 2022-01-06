@@ -1,4 +1,5 @@
 import {
+  Alert,
   Avatar,
   Box,
   Button,
@@ -9,6 +10,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Snackbar,
   Stack,
   TextField,
   Typography,
@@ -30,6 +32,8 @@ const UserInfo = () => {
   const [avatar, setAvatar] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFlag, setSelectFlag] = useState(false);
+  const [avatarToast, setAvatarToast] = useState(false);
+  const [saveToast, setSaveToast] = useState(false);
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     // setSelectedFile(event.target);
@@ -37,11 +41,10 @@ const UserInfo = () => {
     setSelectFlag(true);
 
     const formData = new FormData();
-    formData.append('avatar', selectedFile);
-
+    formData.append('avatar', (event.target as HTMLInputElement).files[0]);
     axiosInstance.post('/user/avatar/upload', formData,  { headers: { 'Content-Type': 'multipart/form-data' } })
-    .then(data => console.log('upload', data))
-    .catch(err=> console.log('err', err));    
+    .then(data => setAvatarToast(true))
+    .catch(err=> <Alert severity="error">Update avatar fail! {err}</Alert>);    
   };
 
   const updateUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,9 +57,18 @@ const UserInfo = () => {
 
   const handleSubmit = () => {
     axiosInstance.post('/user/info', {username: username, email: email})
-    .then(data => console.log('sbumit', data ))
+    .then(data => setSaveToast(true))
     .catch(err=> console.log('sbmit err', err));
+    
     setEdited('false');
+  };
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAvatarToast(false);
+    setSaveToast(false);
   };
 
   useEffect(() => {
@@ -141,6 +153,7 @@ const UserInfo = () => {
                     <Button variant='outlined' onClick={() => navigate(-1)}>
                       Back
                     </Button>
+                  <Snackbar open={saveToast} autoHideDuration={6000} message='Data saved!' onClose={handleClose}/>
                   </ListItem>
                 </List>
               </Grid>
@@ -178,6 +191,7 @@ const UserInfo = () => {
                         <label htmlFor='image-upload'>
                         <Button component='span' variant='contained'>Upload</Button>
                           </label>
+                          <Snackbar open={avatarToast} autoHideDuration={6000} message='Update avatar successfully!' onClose={handleClose}/>
                       </ListItem>
                     </List>
 
