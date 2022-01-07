@@ -18,7 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Dog from '../../assets/svgs/Dog';
 import Tushe from '../../assets/svgs/Tushe';
 import Chigua from '../../assets/Chigua';
-import { Avatar, Button, Grid, ListItemButton, Stack } from '@mui/material';
+import { Avatar, Button, Dialog, DialogActions, DialogTitle, Grid, ListItemButton, Stack } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { LogOut } from 'react-feather';
 import { LayoutProps } from '../../interfaces/Layout';
@@ -98,6 +98,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [open, setOpen] = React.useState(false);
   const [username, setUsername] = React.useState('Username');
   const [avatar, setAvatar] = React.useState(null);
+  const [logoutToast, setLogoutToast] = React.useState(false);
 
   React.useEffect(()=>{
 
@@ -120,12 +121,20 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     setOpen(false);
   };
 
+  const handleLogOutToast = () => {
+    setLogoutToast(true);
+  };
+
   const handleLogOut = () => {
     navigate('/login');
   };
 
   const handleEdit = () => {
     navigate('/user/hireoo');
+  };
+
+  const handleCloseAction = (event?: React.SyntheticEvent | Event, reason?: string) =>{
+    setLogoutToast(false);
   };
 
   return (
@@ -146,9 +155,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Dog, dont cry..
           </Typography>
-          <Button onClick={handleLogOut} sx={{color:'white'}}>
+          <Button onClick={handleLogOutToast} sx={{color:'white'}}>
             Log out
           </Button>
+          <Dialog open={logoutToast} onClose={handleCloseAction} aria-labelledby='logout-title'>
+            <DialogTitle id='logout-title'>
+            Are you sure to log out? 
+            </DialogTitle>
+            <DialogActions>
+              <Button onClick={handleCloseAction} variant='contained'>Cancel</Button>
+              <Button onClick={handleLogOut}>Log out</Button>
+            </DialogActions>
+
+          </Dialog>
         </Toolbar>
       </AppBar>
       <Drawer

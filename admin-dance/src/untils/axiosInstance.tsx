@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 import dayjs from 'dayjs';
 
 
-const baseURL = 'https://api-dance.hireoo.fun/';
+const baseURL = 'http://localhost:5000/';
 
 let authToken = localStorage.getItem('access_token');
 let refreshToken = localStorage.getItem('refresh_token');
