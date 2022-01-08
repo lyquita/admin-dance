@@ -3,6 +3,8 @@ import placeItems from '../components/global/common';
 export interface ToolkitProps{
     inputValue: string;
     setInputValue: (arg: string) => void;
+    viewDuration: string;
+    setViewDuration: (value: string) => void;
 }
 
 
@@ -53,4 +55,11 @@ export interface IOccupyProps{
 
 export interface ICostProps{
     costPerUserList: ChartData,
+}
+
+
+export interface ViewsDurationProps{
+    open: boolean,
+    selectedValue: string,
+    onClose: (value: string) => void
 }

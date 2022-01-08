@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [avgSignAmount, setAvgSignAmount] = useState<number>(20);
   const [avgOccupyRate, setAvgOccupyRate] = useState<number>(0.80);
   const [avgCostPerUser, setAvgCostPerUser] = useState<number>(20);
+  const [viewDuration, setViewDuration] = useState<string>('last_seven_days');
   const [orderAmountList, setOrderAmountList] = useState<ChartData>({ labels: ['hip hop', 'swag', 'choreography'],
   datasets: [{data: [1, 3, 4]}]});
   const [signAmountList, setSignAmountList] = useState<ChartData>({ labels: ['hip hop', 'swag', 'choreography'],
@@ -32,7 +33,7 @@ const Dashboard = () => {
 
   useEffect(()=>{
 
-    axiosInstance(`/course/last_seven_days/${inputValue}/`)
+    axiosInstance(`/course/${viewDuration}/${inputValue}/`)
     .then((res)=>{
       console.log('res', res);
       const data = res.data;
@@ -94,8 +95,10 @@ const Dashboard = () => {
       return Promise.reject(err);
     });
 
-  }, [inputValue]);
+  }, [inputValue, viewDuration]);
 
+
+  console.log('view from parent', viewDuration);
 
 
   return (
@@ -103,7 +106,7 @@ const Dashboard = () => {
       <Layout />
       <Grid container direction='column' spacing={3} alignContent='center'>
         <Grid item>
-          <Toolkit inputValue = { inputValue } setInputValue = { setInputValue }/>
+          <Toolkit inputValue = { inputValue } setInputValue = { setInputValue } viewDuration = {viewDuration} setViewDuration = {setViewDuration}/>
         </Grid>
         <Grid item>
           <AmountStatistic avgSignAmount={avgSignAmount} avgOrderAmount={avgOrderAmount} avgCostPerUser={avgCostPerUser} avgOccupyRate={avgOccupyRate}/>
