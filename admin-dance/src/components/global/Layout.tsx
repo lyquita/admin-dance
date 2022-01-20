@@ -90,6 +90,11 @@ const menuItems = [
     icon: <Chigua />,
     path: '/course',
   },
+  {
+    text: 'User',
+    icon: <Chigua />,
+    path: '/user',
+  }
 ];
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {

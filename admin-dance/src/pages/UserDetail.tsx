@@ -18,13 +18,14 @@ import {
 import { width } from '@mui/system';
 import * as React from 'react';
 import Layout from '../components/global/Layout';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../untils/axiosInstance';
 import CloseIcon from '@mui/icons-material/Close';
 
 const UserInfo = () => {
   const navigate = useNavigate();
+  const params = useParams();
   const [edited, setEdited] = useState('false');
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
@@ -34,6 +35,8 @@ const UserInfo = () => {
   const [selectedFlag, setSelectFlag] = useState(false);
   const [avatarToast, setAvatarToast] = useState(false);
   const [saveToast, setSaveToast] = useState(false);
+
+  console.log('param', params.username);
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     // setSelectedFile(event.target);
@@ -73,7 +76,7 @@ const UserInfo = () => {
 
   useEffect(() => {
     axiosInstance
-      .get('/user/info')
+      .get(`/user/info?username=${params.username}`)
       .then((res) => {
         if (res.data) {
           setUsername(res.data.username);
@@ -83,7 +86,7 @@ const UserInfo = () => {
         }
       })
       .catch((err) => Promise.reject(err));
-  }, [edited, avatar]);
+  }, [edited, avatar, params]);
 
   return (
     <>
