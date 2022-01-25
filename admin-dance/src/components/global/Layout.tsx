@@ -18,12 +18,21 @@ import ListItemText from '@mui/material/ListItemText';
 import Dog from '../../assets/svgs/Dog';
 import Tushe from '../../assets/svgs/Tushe';
 import Chigua from '../../assets/Chigua';
-import { Avatar, Button, Dialog, DialogActions, DialogTitle, Grid, ListItemButton, Stack } from '@mui/material';
+import {
+  Avatar,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Grid,
+  ListItemButton,
+  Stack,
+} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { LogOut } from 'react-feather';
 import { LayoutProps } from '../../interfaces/Layout';
 import axiosInstance from '../../untils/axiosInstance';
-
+import useAdmin from '../../hooks/useAdmin';
 
 const drawerWidth = 200;
 
@@ -52,7 +61,6 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
@@ -79,24 +87,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-const menuItems = [
-  {
-    text: 'Dashboard',
-    icon: <Tushe />,
-    path: '/dashboard',
-  },
-  {
-    text: 'Course',
-    icon: <Chigua />,
-    path: '/course',
-  },
-  {
-    text: 'User',
-    icon: <Chigua />,
-    path: '/user',
-  }
-];
-
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -104,20 +94,56 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [username, setUsername] = React.useState('Username');
   const [avatar, setAvatar] = React.useState(null);
   const [logoutToast, setLogoutToast] = React.useState(false);
+  const { admin } = useAdmin();
+  let menuItems = [];
 
-  React.useEffect(()=>{
-
-  axiosInstance.get('/user/info')
-  .then(res=> {
-    if(res.data){
-      setUsername(res.data.username);
-      setAvatar(res.data.avatar);
-      localStorage.setItem('admin', res.data.admin);
-    }}
-    )
-  .catch(err=> Promise.reject(err));
-
+  React.useEffect(() => {
+    axiosInstance
+      .get('/user/info')
+      .then((res) => {
+        if (res.data) {
+          setUsername(res.data.username);
+          setAvatar(res.data.avatar);
+          localStorage.setItem('admin', res.data.admin);
+        }
+      })
+      .catch((err) => Promise.reject(err));
   }, [avatar]);
+
+  if (admin) {
+    menuItems = [
+      {
+        text: 'Dashboard',
+        icon: <Tushe />,
+        path: '/dashboard',
+      },
+      {
+        text: 'Course',
+        icon: <Chigua />,
+        path: '/course',
+      },
+      {
+        text: 'User',
+        icon: <Chigua />,
+        path: '/user',
+      },
+    ];
+  } else {
+    menuItems = [
+      {
+        text: 'Dashboard',
+        icon: <Tushe />,
+        path: '/dashboard',
+      },
+      {
+        text: 'Course',
+        icon: <Chigua />,
+        path: '/course',
+      },
+    ];
+  }
+
+  console.log('menuItem', typeof menuItems);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -139,40 +165,48 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     navigate(`/account/${username}`);
   };
 
-  const handleCloseAction = (event?: React.SyntheticEvent | Event, reason?: string) =>{
+  const handleCloseAction = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
     setLogoutToast(false);
   };
 
   return (
     <Box>
       <CssBaseline />
-        <AppBar position="fixed">
+      <AppBar position='fixed'>
         <Toolbar>
           <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
+            size='large'
+            edge='start'
+            color='inherit'
+            aria-label='menu'
             sx={{ mr: 2 }}
             onClick={handleDrawerOpen}
           >
             <Chigua />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             Dog, dont cry..
           </Typography>
-          <Button onClick={handleLogOutToast} sx={{color:'white'}}>
+          <Button onClick={handleLogOutToast} sx={{ color: 'white' }}>
             Log out
           </Button>
-          <Dialog open={logoutToast} onClose={handleCloseAction} aria-labelledby='logout-title'>
+          <Dialog
+            open={logoutToast}
+            onClose={handleCloseAction}
+            aria-labelledby='logout-title'
+          >
             <DialogTitle id='logout-title'>
-            Are you sure to log out? 
+              Are you sure to log out?
             </DialogTitle>
             <DialogActions>
-              <Button onClick={handleCloseAction} variant='contained'>Cancel</Button>
+              <Button onClick={handleCloseAction} variant='contained'>
+                Cancel
+              </Button>
               <Button onClick={handleLogOut}>Log out</Button>
             </DialogActions>
-
           </Dialog>
         </Toolbar>
       </AppBar>
@@ -211,11 +245,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     alignItems: 'center',
                   }}
                 >
-                  <Avatar alt='avatar' src={avatar} sx={{height:'100%', width:'100%'}}>
-                  </Avatar>
+                  <Avatar
+                    alt='avatar'
+                    src={avatar}
+                    sx={{ height: '100%', width: '100%' }}
+                  ></Avatar>
                 </Box>
-                <Box sx={{ display: 'flex'}}>
-                  <Typography >{username}</Typography>
+                <Box sx={{ display: 'flex' }}>
+                  <Typography>{username}</Typography>
                   <EditIcon onClick={handleEdit} />
                 </Box>
               </Stack>
@@ -238,10 +275,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           ))}
         </List>
       </Drawer>
-      {/* <Main open={open}>
-        <DrawerHeader />
-        {children}
-      </Main> */}
     </Box>
   );
 };
