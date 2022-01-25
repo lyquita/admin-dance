@@ -112,6 +112,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     if(res.data){
       setUsername(res.data.username);
       setAvatar(res.data.avatar);
+      localStorage.setItem('admin', res.data.admin);
     }}
     )
   .catch(err=> Promise.reject(err));
