@@ -64,7 +64,9 @@ const UserList = () => {
                   </TableCell>
                   <TableCell > {item.username} </TableCell>
                   <TableCell > {item.email} </TableCell>
-                  <TableCell > {item.admin} </TableCell>
+                  <TableCell > 
+                    { item.admin ? 'true' : 'false' }  
+                  </TableCell>
                   <TableCell> 
                       <Button variant='contained' onClick={handleView} value={item.username} >View</Button>
                   </TableCell>
