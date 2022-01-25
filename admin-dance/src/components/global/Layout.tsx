@@ -136,7 +136,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   const handleEdit = () => {
-    navigate('/user/hireoo');
+    navigate(`/account/${username}`);
   };
 
   const handleCloseAction = (event?: React.SyntheticEvent | Event, reason?: string) =>{

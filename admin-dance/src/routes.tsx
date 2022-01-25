@@ -6,12 +6,14 @@ import Course from './pages/Courses';
 import UserInfo from './pages/UserDetail';
 import UserList from './pages/User';
 import PrivateRoute from './untils/PrivateRoute';
+import AccountDetail from './pages/AccountDetail';
 
 const AppRoutes =() =>{
     return(
         <Routes>
             <Route path='/' element={<Dashboard />} />
             <Route path='login' element={ <Login /> }/>
+            <Route path='account/:username' element={ <AccountDetail />} />
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='course' element={<Course/> } />
             <Route path='user/:username' element={<UserInfo/>} />
